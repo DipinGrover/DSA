@@ -83,6 +83,100 @@ Node* delettion_of_tail(Node* head)
     return head;
 
 }
+
+Node* delete_kth_node(Node* head , int K)
+{
+    if(head == NULL)
+    {
+        // empty LL
+
+        return head;
+    }
+
+    if(K==1) // deletion of head node
+    {
+        Node*temp = head; // temp pointing to head
+        head = head->next;  //move the head
+        delete temp; // delete temp
+        return head;
+
+    }
+
+
+    // this logic will handle case for deletion of middle node  , tail node , and if node does not exist
+    Node* temp = head;
+    int cnt = 0;
+    Node* prev = NULL;
+
+    while(temp != NULL)
+    {
+        // move in LL
+
+        cnt++;
+
+        if(cnt ==K)
+        {
+            // we have to delete this Node
+
+            prev->next = temp->next;
+            delete temp;
+            break;
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+
+    return head;
+}
+
+
+// delete a given X value Node
+
+Node* delete_X_value_node(Node* head , int X)
+{
+    // if LL is empty
+
+    if(head == NULL)
+    {
+        return head;
+    }
+
+    // if X is value of first node
+    if(head->data ==X)
+    {
+        // delete this node
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        return head;
+    }
+
+    // if X is value of midddle nod e or tail node
+
+
+    Node* temp = head;
+    Node* prev = NULL;
+    // no need of count here
+
+    while(temp != NULL) //move in a LL
+    {
+        if(temp->data ==X)
+        {
+            // we have to delete this node
+            // don't forget to keep track of previous 
+            prev->next = temp->next;
+            delete temp;
+            break;
+
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    return head;
+}
+
+
+
 int main()
 {
     vector<int> arr = {2,6,7,8,4,1,9};
@@ -101,10 +195,32 @@ int main()
 
 
 
-    // deletion of tail part
+    // // deletion of tail part
+    // traversal_in_LL(head);
+    // head = delettion_of_tail(head);
+    // cout << endl;
+    // traversal_in_LL(head);
+
+
+
+
+    // // deletion of kth node
+    // traversal_in_LL(head);
+
+    // head = delete_kth_node(head , 8);
+    // cout <<endl;
+    // traversal_in_LL(head);
+
+
+
+
+
+
+
+    // deletion of given node with value X
     traversal_in_LL(head);
-    head = delettion_of_tail(head);
+    head = delete_X_value_node(head , 4);
     cout << endl;
     traversal_in_LL(head);
-
+   
 }
