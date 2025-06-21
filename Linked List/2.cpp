@@ -56,6 +56,18 @@ void traversal_in_LL(Node* head)
 
 Node* deletion_of_head(Node* head)
 {
+    if(head ==NULL)
+    {
+        // empty LL
+        return head;
+    }
+
+    if(head->next == nullptr)
+    {
+        // single node LL
+        delete head;
+        return NULL;
+    }
     Node* temp = head;
 
     head = head->next; // move the head 
@@ -66,6 +78,19 @@ Node* deletion_of_head(Node* head)
 
 Node* delettion_of_tail(Node* head)
 {
+    if(head==NULL)
+    {
+        // empty LL
+        return head;
+    }
+    if(head->next==nullptr)
+    {
+        // single node that will be head and tail 
+
+        delete head;
+
+        return NULL;
+    }
     Node* temp = head;
 
     // we have to move until temp->next->next!=null
@@ -177,11 +202,146 @@ Node* delete_X_value_node(Node* head , int X)
 
 
 
+// insertion part 
+
+Node* insertion_before_head(Node* head , int ele)
+{
+    
+    Node* temp = new Node(ele); // new node
+
+    temp->next = head; // now temp->next is head
+
+    head = temp; // new head is temp node now 
+
+
+    return head;
+}
+
+
+Node* insertion_after_tail(Node* head , int ele)
+{
+    if(head == NULL)
+    {
+        Node* temp = new Node(ele);
+        return temp;
+    }
+    Node* temp = head;
+    while(temp != NULL)
+    {
+        //move in LL
+
+        if(temp->next == nullptr)
+        {
+            // insert node here 
+            Node* tail = new Node(ele); //new node
+            temp->next = tail; //temp next is now this new node
+            break;
+        }
+
+        temp = temp->next; //keep moving
+    }
+    return head;
+}
+
+Node* insertion_at_Kth_position(Node* head , int ele , int K)
+{
+    if(head == NULL)
+    {
+        // empty LL
+        // we can only insert at head
+        if(K==1)
+        {
+            // inseert at head
+            Node* temp = new Node(ele);
+            temp->next = head;
+            return temp;
+        }
+        return NULL;
+    }
+
+    if(K==1)
+    {
+        // insertion at head
+        Node* temp = new Node(ele);
+        temp->next = head;
+        return temp;
+    }
+
+    // for cases insertion in betwwen two nodes or at tail logic
+    Node* temp = head;
+    Node* new_one = new Node(ele);
+    int cnt = 0;
+    while(temp != NULL)
+    {
+        // move in LL
+        cnt++;
+
+        if(cnt == K-1)
+        {
+            // we have to stop here
+            new_one->next = temp->next;
+            temp->next = new_one;
+            break;
+        }
+
+        temp = temp->next;
+    }
+    return head;
+}
+
+
+Node* insertion_before_a_specific_node_x(Node* head , int ele , int x)
+{
+
+    // int ele is the value of new node
+    // int x is the value of node before which we have to insert a new node
+    if(head==NULL)
+    {
+        // empty LL
+        // insert kis node ke phle karoge 
+        return head;
+    }
+    if(head->data == x)
+    {
+        // insert before head
+        Node* temp = new Node(ele);
+        temp->next = head;
+        return temp;
+    }
+
+    Node* temp= head;
+    Node* prev = NULL;
+    Node* new_one = new Node(ele);
+    while(temp != NULL)
+    {
+        // move in LL
+
+        if(temp->data  == x)
+        {
+            // wr have insert new node before it
+            new_one->next = temp;
+            prev->next = new_one;
+            break;
+        }
+        prev = temp;
+        temp = temp->next;
+        
+
+    }
+    return head;
+
+}
+
+
+
 int main()
 {
-    vector<int> arr = {2,6,7,8,4,1,9};
+    vector<int> arr = {2,7,1,9,6,3,8};
 
     Node* head = array_to_LL(arr);
+
+    // deletion part
+
 
     // // deletion of head part ---
     // traversal_in_LL(head); // before deletion of head
@@ -217,9 +377,61 @@ int main()
 
 
 
-    // deletion of given node with value X
+    // // deletion of given node with value X
+    // traversal_in_LL(head);
+    // head = delete_X_value_node(head , 4);
+    // cout << endl;
+    // traversal_in_LL(head);
+
+
+
+
+
+
+
+
+    // insertion part now 
+
+
+    // // insert before head of LL
+    // traversal_in_LL(head);
+    // head = insertion_before_head(head , 3);
+    // cout << endl;
+    // traversal_in_LL(head);
+
+
+
+
+
+    // ek baar if head == NULL ho toh wo case dekhna h 
+    // // insert after tail 
+    // traversal_in_LL(head);
+    // head=insertion_after_tail(head , 3);
+    // cout << endl;
+    // traversal_in_LL(head);
+
+
+
+
+
+
+    // // insertion at Kth position in a LL
+    // traversal_in_LL(head);
+    // head = insertion_at_Kth_position(head,4,8);
+    // cout << endl;
+    // traversal_in_LL(head);
+
+
+
+
+
+
+
+
+
+    // insert a node before a node whose value is x
     traversal_in_LL(head);
-    head = delete_X_value_node(head , 4);
+    head = insertion_before_a_specific_node_x(head,4,8);
     cout << endl;
     traversal_in_LL(head);
    
