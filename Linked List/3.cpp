@@ -236,9 +236,30 @@ Node*  delete_node(Node* head , Node* temp)
     return head;
 }
 
+Node* insertion_before_head(Node* head , int value)
+{
+    if(head->next == NULL)
+    {
+        // single node 
+        Node* temp = new Node(value);
+        temp->next = head;
+        head->prev = temp;
+
+        head->next = nullptr;
+        temp->prev = nullptr;
+        return temp;
+    }
+    Node* temp = new Node(value);
+
+    temp->next = head;
+    head->prev = temp;
+
+    return temp;
+}
+
 int main()
 {
-    vector<int> arr = {5,6,9,1,2,4};
+    vector<int> arr = {4};
 
 
     Node* head = array_to_DLL(arr);
@@ -291,10 +312,24 @@ int main()
     
 
 
-    // delete the node 
-    traversal_in_DLL(head);
+    // // delete the node 
+    // traversal_in_DLL(head);
 
-    head =  delete_node(head , head->next->next);
+    // head =  delete_node(head , head->next->next);
+    // cout <<endl;
+    // traversal_in_DLL(head);
+
+
+
+
+
+
+
+
+    // insertion before head
+
+    traversal_in_DLL(head);
+    head = insertion_before_head(head , 9);
     cout <<endl;
     traversal_in_DLL(head);
 
