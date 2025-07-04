@@ -17,6 +17,8 @@ class Node{
     Node(int data1)
     {
         data = data1;
+        next = nullptr;
+        prev = nullptr;
     }
 };
 
@@ -257,9 +259,116 @@ Node* insertion_before_head(Node* head , int value)
     return temp;
 }
 
+Node* insert_before_tail(Node* head , int val)
+{
+    if(head->next == nullptr && head->prev==nullptr)
+    {
+        // single node that will be head and tail
+        Node* temp = new Node(val);
+        temp->next = head;
+        head->prev = temp;
+        return temp;
+    }
+
+    Node* temp = head;
+    Node* new_node = new Node(val);
+    while(temp->next->next  != NULL)
+    {
+        // move in LL
+        temp = temp->next;
+    } 
+    Node* back = temp;
+    Node* front = temp->next;
+
+    back->next = new_node;
+    front->prev = new_node;
+    new_node->prev = back;
+    new_node->next = front;
+
+    return head;
+
+
+}
+
+Node* insert_beforeKth_node(Node* head , int K , int val)
+{
+    if(head == NULL)
+    {
+        // empty LL
+
+        return NULL;
+    }
+    if(head->next==nullptr && head->prev==nullptr)
+    {
+        // single node only 
+        if(K==1)
+        {
+            // insert before head
+            Node* temp = new Node(val);
+            temp->next = head;
+            head->prev = temp;
+            return temp;
+        }
+    }
+
+    if(K==1)
+    {
+        // insert befor head Node
+        Node* temp = new Node(val);
+        temp->next = head;
+        head->prev = temp;
+        return temp;
+    }
+
+    Node* temp = head;
+    int cnt = 0;
+    while(temp != NULL)
+    {
+        cnt++;
+        // move inLL
+        if(cnt== K)
+        {
+            break;
+        }
+        temp = temp->next;
+        
+    }
+    Node* new_one = new Node(val);
+    Node* front = temp;
+    Node* back = front->prev;
+    back->next = new_one;
+    front->prev = new_one;
+    new_one->prev = back;
+    new_one->next = front;
+
+    return head;    
+}
+
+Node* insert_before_node(Node* head , Node* node , int val)
+{
+    // it is mentioned that we cannot insert a node before head
+
+    
+    Node* temp   = head;
+    while(temp != node)
+    {
+        // move 
+        temp = temp->next;
+    }
+    Node* new_one = new Node(val);
+    Node* back = node->prev;
+    new_one->prev = back;
+    new_one->next = node;
+    node->prev = new_one;
+    back->next = new_one;
+    return head;
+
+
+}
+
 int main()
 {
-    vector<int> arr = {4};
+    vector<int> arr = {5,6,9,1,2,4};
 
 
     Node* head = array_to_DLL(arr);
@@ -326,14 +435,37 @@ int main()
 
 
 
-    // insertion before head
+    // // insertion before head
 
-    traversal_in_DLL(head);
-    head = insertion_before_head(head , 9);
-    cout <<endl;
-    traversal_in_DLL(head);
+    // traversal_in_DLL(head);
+    // head = insertion_before_head(head , 9);
+    // cout <<endl;
+    // traversal_in_DLL(head);
 
     
 
+
+    // // insertion before tail
+    // traversal_in_DLL(head);
+    // head = insert_before_tail(head ,10);
+    // cout << endl;
+    // traversal_in_DLL(head);
+
+
+
+
+    // // insertion before kth node
+    // traversal_in_DLL(head);
+    // head = insert_beforeKth_node(head , 1 , 8);
+    // cout <<endl;
+    // traversal_in_DLL(head);
+
+
+
+    // //insertion before node
+    // traversal_in_DLL(head);
+    // head = insert_before_node(head , head->next->next->next->next->next , 18);
+    // cout <<endl;
+    // traversal_in_DLL(head);
 
 }
