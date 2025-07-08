@@ -1,30 +1,26 @@
 #include <iostream>
-#include  <string>
 using namespace std;
-
-int return_no_of_vowels(string str)
+int Length_of_string(char name[])
 {
-    // count vowels in a string 
-
-     
-
     int count = 0;
-
-    for(int i = 0 ; i<str.size() ;i++)
+    for(int i = 0 ;name[i] != '\0'; i++)
     {
-        if(str[i]=='a' || str[i]=='e' || str[i]=='i' || str[i]=='o' || str[i]=='u')
-        {
-            count++;
-        }
+        count++;
+
+
     }
 
     return count;
-}
 
+}
 int main()
 {
-    int ans = return_no_of_vowels("dipin grover");
+    char str[20];
 
-    cout << ans;
+    cin >> str;
+
+
+    cout << Length_of_string(str);
+
 
 }

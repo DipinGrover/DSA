@@ -1,21 +1,14 @@
 #include <iostream>
-
 using namespace std;
-
 int main()
 {
+    char arr[20];
+
+    cout << "Enter your name : " ;
+    cin >> arr;
+
     
-    // string str = "Dipin Grover";
-    // cout << str;
 
-
-    // taking input of string 
-    string s;
-    getline(cin,s); // helps us to take input of string with space
-
-    cout << s;
-
-
-
-
+    cout << "Your name is  : ";
+    cout << arr;
 }
